@@ -1,6 +1,7 @@
-
 # web-scraping-intro/src/scraper.py
 import requests
+import json
+import os
 from bs4 import BeautifulSoup
 
 class SimpleWebScraper:
@@ -61,3 +62,24 @@ class SimpleWebScraper:
             "book_title": book_title,
             "chapter_titles": chapter_titles
         }
+
+    def save_to_json(self, data, output_path='data/scraped_output.json'):
+        """
+        Saves scraped data to a JSON file inside the data/ folder.
+        Creates the folder if it doesn't already exist.
+        """
+        if not data:
+            print("No data to save.")
+            return
+
+        # Create the data/ folder if it doesn't exist
+        output_dir = os.path.dirname(output_path)
+        if output_dir and not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        try:
+            with open(output_path, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+            print(f"Data successfully saved to: {output_path}")
+        except IOError as e:
+            print(f"Error saving data to file: {e}")

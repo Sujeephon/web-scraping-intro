@@ -13,7 +13,7 @@ def main():
     """
     target_url = "https://automatetheboringstuff.com/2e/"
     scraper = SimpleWebScraper(target_url)
-    
+
     scraped_data = scraper.scrape_main_titles()
 
     if scraped_data:
@@ -26,6 +26,9 @@ def main():
         else:
             print("No chapter titles found.")
         print("--------------------")
+
+        # Save the scraped data to data/scraped_output.json
+        scraper.save_to_json(scraped_data)
     else:
         print("Failed to scrape data.")
 
